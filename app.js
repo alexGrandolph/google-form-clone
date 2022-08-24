@@ -29,10 +29,16 @@ class App {
   }
 
   handleformClick(event) {
-    const isFormClicked = this.$form.contains(event.target) //returns a T/F
+    const isFormClicked = this.$form.contains(event.target) //returns a T/F 
+
+    const title = this.$noteTitle.value;
+    const text = this.$noteText.value;
+    const hasNote = title || text;
 
     if (isFormClicked) {
       this.openForm();
+    } else if (hasNote) { 
+      this.addNote( { title, text });
     } else {
       this.closeForm();
     }
@@ -48,8 +54,8 @@ class App {
     this.$form.classList.remove('form-open');
     this.$noteTitle.style.display = 'none';
     this.$formButtons.style.display = 'none';
-    this.$noteTitle.value = '';
-    this.$noteText.value = '';
+    this.$noteTitle.value = "";
+    this.$noteText.value = "";
   }
 
   addNote(note) {
@@ -62,6 +68,7 @@ class App {
 
     this.notes = [...this.notes, newNote];
     this.displayNotes();
+    this.closeForm();
   } 
 
   displayNotes() {
@@ -80,7 +87,6 @@ class App {
         </div
       </div>
     `).join("");
-
   }
 
 
